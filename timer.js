@@ -3,6 +3,7 @@
 var timerElt = document.getElementById("validation");
 var interval;
 var duration = 60;
+var station;
 
 var timer = {
 
@@ -29,25 +30,31 @@ var timer = {
 		clearInterval(interval);
 		interval = setInterval(function(){
 			var temp = convert(duration);
-			document.getElementById("validation").textContent = "Vous avez déjà une réservation à la station " + this.name + temp;
+			timerElt.textContent = "Vous avez déjà une réservation à la station " + name + temp;
 			duration--;
 			if(duration < 0){
 				stopDecompte();
-				document.getElementById("validation").textContent = "Votre réservation est terminée.";
+				timerElt.textContent = "Votre réservation est terminée.";
 			}
 		},1000)
 	},
 
 	display: function(){
-	         document.getElementById("validation").textContent = "Vous n'avez pas de réservation.";
+	         timerElt.textContent = "Vous n'avez pas de réservation.";
 
 	},
 
-	decompte: function(this.name){
+	decompte: function(name){
+		var convert =  function(duration){
+				min = Math.floor(duration/60) % 60;
+				sec = duration % 60;
+
+				return " pour une durée de " + min + " min " + sec + " s.";
+			};
 		  clearInterval(interval);
 		  interval = setInterval(function(){
 				temp = convert(duration);
-				timerElt.textContent = "Un vélo réservé à la station: " + this.name + temp;
+				timerElt.textContent = "Un vélo réservé à la station: " + name + temp;
 				duration--;
 
 				if(duration < 0){
@@ -67,20 +74,19 @@ var timer = {
 
 	},
 
-	convert: function(duration){
-			this.min = Math.floor(duration/60) % 60;
-			this.sec = duration % 60;
-
-			return " pour une durée de " + this.min + " min " + this.sec + " s.";
+	// convert: function(duration){
+	// 		this.min = Math.floor(duration/60) % 60;
+	// 		this.sec = duration % 60;
+	//
+	// 		return " pour une durée de " + this.min + " min " + this.sec + " s.";
 
 		//////confirmElt.addEventListener("click", timer.decompte()); A SORTIR//////
-	},
+	// },
 
 	save: function(){
-		sessionStorage.setItem("min", this.min);
-		sessionStorage.setItem("sec", this.sec);
-
-	     //////window.addEventListener("unload", timer.save()); A SORTIR/////
+		sessionStorage.setItem("min", min);
+		sessionStorage.setItem("sec", sec);
+	//      //////window.addEventListener("unload", timer.save()); A SORTIR/////
 	},
 
 	cancel: function(){
@@ -89,3 +95,5 @@ var timer = {
 	}
 
 }; // Fin de l'objet timer
+// timer.init();
+// timer.decompte(station,name);

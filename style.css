@@ -1,4 +1,58 @@
-#googleMap {
-  height: 400px;
-  width: 60%;
+/* Map*/
+
+#map {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
+
+#googleMap {
+  width: 60%;
+  height: 400px;
+
+}
+/************************************************************/
+
+/* Aside */
+aside {
+  font-size: 0.7em;
+}
+
+#detailsStation {
+  width: 40%;
+
+}
+
+/*************************************************************/
+
+/* bikeReservation _ canvas*/
+
+#bikeReservation {
+  position:relative;
+}
+
+#canvas {
+  position:absolute;
+  right: 2%;
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  border: 2px solid black;
+}
+
+/* bouton de validation de la réservation*/
+#confirm {
+  position:absolute;
+  right: 15%;
+  /* left: 40%; */
+  top: 120px;
+}
+
+/* bouton servant effacer le contenu du canvas*/
+#clear {
+  position:absolute;
+  /* left: 55%; */
+  right: 5%;
+  top: 120px;
+}
+
+/*******************************************************/
