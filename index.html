@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Réservation de vélos sur Lyon</title>
 
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Réservation de vélos sur Lyon</title>
 
-  <body>
-    <header>
-      <div id="slideshow">
-        <div id="photo1">
-          <img  src=" " alt=" " class="photo">
-          <p>Le slider n'est pas encore codé (allez au boulot!!!!!)</p>
-        </div>
+</head>
+
+<body>
+  <header>
+    <div id="slideshow">
+      <div id="photo1">
+        <img src=" " alt=" " class="photo">
+        <p>Le slider n'est pas encore codé (allez au boulot!!!!!)</p>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <section id="map">
-      <div id="googleMap"></div>
-      <aside id="stationDetails"></aside>
-    </section>
+  <!--Sélection de la station de vélo désirée sur la carte google-->
+  <section id="map">
+    <div id="googleMap"></div>
+    <aside id="stationDetails"></aside>
+  </section>
 
-    <!--réservation de vélos -->
-    <section>
-      <div id="bikeReservation"></div>
-    </section>
+  <!--Réservation de vélos -->
+  <section>
+    <div id="bikeReservation"></div>
+  </section>
 
-    <!-- confirmation de la réservation -->
-    <footer>
-      <div id="validation"></div>
-    </footer>
+  <!--Confirmation de la réservation -->
+  <footer>
+    <div id="validation"></div>
+  </footer>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVdQjDHLeC3tx8x8ZBYSd8Hblpszb1Dqs"></script>
-    <script src="ajax.js"></script>
-    <script src="markerclusterer.js"></script>
-    <script src="map.js"></script>
-    <script src="aside.js"></script>
-    <script src="canvas.js"></script>
-    <script src="timer.js"></script>
-    
-    <!-- <script src="slider.js"></script> -->
-    <!-- <script src="main.js"></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVdQjDHLeC3tx8x8ZBYSd8Hblpszb1Dqs"></script>
+  <script src="ajax.js"></script>
+  <script src="markerclusterer.js"></script>
+  <script src="timer.js"></script>
+  <script src="map.js"></script>
+  <script src="aside.js"></script>
+  <script src="canvas.js"></script>
+  
+  <!-- <script src="slider.js"></script> -->
+  <script src="main.js"></script>
+</body>
 
-    <!-- <script src="essai.js"></script> -->
-
-    <script src="app.js"></script>
-  </body>
 </html>

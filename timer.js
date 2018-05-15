@@ -1,99 +1,80 @@
 // OBJET TIMER
-
 var timerElt = document.getElementById("validation");
 var interval;
-var duration = 60;
-var station;
+var duration = 30;
+
 
 var timer = {
 
-	init: function(){
-
-	  if(sessionStorage.length > 0){
-	  	  this.getItem();
-		    this.chrono();
-	  }else {
-	       this.display();
-	  }
+	init: function () {
+		if (sessionStorage.length > 0) {
+			this.getItem();
+			this.chrono();
+			
+		} else {
+			this.display();
+		}
 	},
 
-	getItem: function(){
-		 this.name = sessionStorage.getItem("name");
-		 this.min = sessionStorage.getItem("min");
-		 this.sec = sessionStorage.getItem("sec");
+	getItem: function () {
+		this.name = sessionStorage.getItem("name");
+		this.min = sessionStorage.getItem("min");
+		this.sec = sessionStorage.getItem("sec");
 
 	},
 
-	chrono: function(){
-
-		var duration = this.min + this.sec;
+	chrono: function () {
+		var duration = min + sec;
 		clearInterval(interval);
-		interval = setInterval(function(){
-			var temp = convert(duration);
-			timerElt.textContent = "Vous avez déjà une réservation à la station " + name + temp;
+		interval = setInterval(function () {
+			temp = convert(duration);
+			timerElt.textContent = "Vous avez déjà une réservation à la station " + station.name + temp;
 			duration--;
-			if(duration < 0){
-				stopDecompte();
+			if (duration < 0) {
+				stopDecompte(interval);
 				timerElt.textContent = "Votre réservation est terminée.";
 			}
-		},1000)
+		}, 1000)
 	},
 
-	display: function(){
-	         timerElt.textContent = "Vous n'avez pas de réservation.";
-
-	},
-
-	decompte: function(name){
-		var convert =  function(duration){
-				min = Math.floor(duration/60) % 60;
-				sec = duration % 60;
-
-				return " pour une durée de " + min + " min " + sec + " s.";
-			};
-		  clearInterval(interval);
-		  interval = setInterval(function(){
-				temp = convert(duration);
-				timerElt.textContent = "Un vélo réservé à la station: " + name + temp;
-				duration--;
-
-				if(duration < 0){
-					stopDecompte();
-					timerElt.textContent = "Votre réservation est terminée.";
-					timer.display();
-				}
-
-		   	},1000)
-	},
-
-	stopDecompte: function(){
-			clearInterval(interval);
-			sessionStorage.clear();
-			window.removeEventListener("unload", timer.save());
-			// timerElt.textContent = "Votre réservation est terminée.";
+	display: function () {
+		timerElt.textContent = "Vous n'avez pas de réservation.";
 
 	},
 
-	// convert: function(duration){
-	// 		this.min = Math.floor(duration/60) % 60;
-	// 		this.sec = duration % 60;
-	//
-	// 		return " pour une durée de " + this.min + " min " + this.sec + " s.";
+	decompte: function (station, name) {
 
-		//////confirmElt.addEventListener("click", timer.decompte()); A SORTIR//////
-	// },
+		clearInterval(interval);
+		interval = setInterval(function () {
+			temp = timer.convert(duration);
+			
+			timerElt.textContent = "Un vélo réservé à la station: " + station.name + temp;
+			duration--;
 
-	save: function(){
+			if (duration < 0) {
+				timer.stopDecompte();
+				//timerElt.textContent = "Votre réservation est terminée.";
+				timer.display();
+			}
+
+		}, 1000)
+	},
+
+	convert: function (duration) {
+		min = Math.floor(duration / 60) % 60;
+		sec = duration % 60;
+
+		return " pour une durée de " + min + " min " + sec + " s.";
+	},
+
+	stopDecompte: function () {
+		clearInterval(interval);
+		return timerElt.textContent = "Votre réservation est annulée."
+	},
+
+	save: function () {
 		sessionStorage.setItem("min", min);
 		sessionStorage.setItem("sec", sec);
-	//      //////window.addEventListener("unload", timer.save()); A SORTIR/////
-	},
-
-	cancel: function(){
-		   stopDecompte();
-		   timerElt.textContent = "Votre réservation est annulée."
+		      
 	}
-
 }; // Fin de l'objet timer
-// timer.init();
-// timer.decompte(station,name);
