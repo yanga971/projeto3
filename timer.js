@@ -2,6 +2,7 @@
 var timerElt = document.getElementById("validation");
 var interval;
 var duration = 30;
+var station;
 
 
 var timer = {
@@ -10,7 +11,7 @@ var timer = {
 		if (sessionStorage.length > 0) {
 			this.getItem();
 			this.chrono();
-			
+
 		} else {
 			this.display();
 		}
@@ -42,13 +43,13 @@ var timer = {
 
 	},
 
-	decompte: function (station, name) {
+	decompte: function (name) {
 
 		clearInterval(interval);
 		interval = setInterval(function () {
 			temp = timer.convert(duration);
-			
-			timerElt.textContent = "Un vélo réservé à la station: " + station.name + temp;
+			console.log(name);
+			timerElt.textContent = "Un vélo réservé à la station: " + name + temp;
 			duration--;
 
 			if (duration < 0) {
@@ -75,6 +76,6 @@ var timer = {
 	save: function () {
 		sessionStorage.setItem("min", min);
 		sessionStorage.setItem("sec", sec);
-		      
+
 	}
 }; // Fin de l'objet timer

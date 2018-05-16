@@ -9,8 +9,9 @@ var canvas = {
         document.getElementById("bikeReservation").appendChild(canvasElt);
         //canvasElt.style.display = "none";
         this.dessin();
-        this.confirm();
+        this.confirm(station, name);
         console.log(station.name);
+
     },
 
     dessin: function canvas(e) {
@@ -70,7 +71,7 @@ var canvas = {
     },
 
     // Création du bouton "confirmer" pour valider la réservation
-    confirm: function () {
+    confirm: function (station, name) {
         var confirmElt = document.createElement("button");
         confirmElt.id = "confirm";
         confirmElt.textContent = "Confirmer";
@@ -84,7 +85,15 @@ var canvas = {
         });
 
         // Ajout d'un écouteur d'évenement sur le bouton de confirmation (lancement du décompte)
-        confirmElt.addEventListener("click", timer.decompte);
+        confirmElt.addEventListener("click", function(){
+            // Disparition du canvas
+            document.getElementById("canvas").style.display = "none";
+            document.getElementById("confirm").style.display = "none";
+            document.getElementById("clear").style.display = "none";
+            
+            // Exécution du timer
+            timer.decompte(station.name);    
+        });
     }
 
 }; // Fin de l'objet canvas
