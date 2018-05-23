@@ -35,8 +35,13 @@ var map = {
 
         // Ajout d'un événement sur chaque marqueur
         marker.addListener("click", function () {
-          aside.init(station, name);
-          console.log(station.name);
+          // Suppression des éléments éventuels dans aside
+          var clear = document.getElementById("stationDetails");
+          while (clear.firstChild) {
+            clear.removeChild(clear.firstChild);
+          }
+          // Affichage des informations sur la station désirée
+          aside.init(station);
         });
       }) // fin de forEach
     }) // ajaxGet

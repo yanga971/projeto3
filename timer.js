@@ -1,81 +1,85 @@
 // OBJET TIMER
 var timerElt = document.getElementById("validation");
 var interval;
-var duration = 30;
-var station;
-
 
 var timer = {
-
 	init: function () {
 		if (sessionStorage.length > 0) {
-			this.getItem();
-			this.chrono();
+			// Vérification si données enregistrées dans sessionStorage
+			this.getItem(this.name, this.duration);
 
+			// Si oui,lancement du temps restant au moment de l'actualisation de la page
+			this.decompte(this.name, this.duration);
 		} else {
 			this.display();
 		}
 	},
 
-	getItem: function () {
+	// Renvoie d'éventuelles données enregistrées
+	getItem: function (name, duration) {
 		this.name = sessionStorage.getItem("name");
-		this.min = sessionStorage.getItem("min");
-		this.sec = sessionStorage.getItem("sec");
-
-	},
-
-	chrono: function () {
-		var duration = min + sec;
-		clearInterval(interval);
-		interval = setInterval(function () {
-			temp = convert(duration);
-			timerElt.textContent = "Vous avez déjà une réservation à la station " + station.name + temp;
-			duration--;
-			if (duration < 0) {
-				stopDecompte(interval);
-				timerElt.textContent = "Votre réservation est terminée.";
-			}
-		}, 1000)
+		this.duration = sessionStorage.getItem("duration");
 	},
 
 	display: function () {
 		timerElt.textContent = "Vous n'avez pas de réservation.";
-
 	},
 
-	decompte: function (name) {
-
+	// Décompte de 20 minutes lorsqu'il y a une réservation validée
+	decompte: function (station, duration) {
 		clearInterval(interval);
+		var duration = 20;
+		var durationRefresh = sessionStorage.durationRefresh;
+
 		interval = setInterval(function () {
-			temp = timer.convert(duration);
-			console.log(name);
-			timerElt.textContent = "Un vélo réservé à la station: " + name + temp;
+			tps = timer.convert(duration);
+			timerElt.textContent = "Un vélo réservé à la station: " + station.name + " pour une durée de " + tps[0] + " min " + tps[1] + " s.";
 			duration--;
 
-			if (duration < 0) {
-				timer.stopDecompte();
-				//timerElt.textContent = "Votre réservation est terminée.";
-				timer.display();
+			// Enregistrement des données si actualisation de la page du navigateur
+			timer.save(station.name, duration);
+
+			// Temps restant après une actualisation de la page du navigateur
+			if (sessionStorage.length > 0) {
+				duration = durationRefresh;
+				tps = timer.convert(durationRefresh);
+				timerElt.textContent = "Vous avez déjà une réservation à la station: " + station + " pour une durée de " + tps[0] + " min " + tps[1] + " s.";
+				durationRefresh--;
 			}
 
+			// Décompte terminé
+			if (duration < 0) {
+				// Arrêt du décompte
+				clearInterval(interval);
+				// Effacement des données éventuelles dans sessionStorage
+				sessionStorage.clear();
+				// Suppression du panneau d'informations
+				aside.details();
+				// Réinitialisation de l'affichage de la page
+				timer.display();
+			}
 		}, 1000)
 	},
 
+	// Conversion des secondes en minutes et secondes
 	convert: function (duration) {
+		// Création d'un tableau afin de stocker les données
+		tps = [];
+
+		// Conversion
 		min = Math.floor(duration / 60) % 60;
 		sec = duration % 60;
 
-		return " pour une durée de " + min + " min " + sec + " s.";
+		// Stockage des données récoltées dans le tableau
+		tps.push(min, sec);
+		return tps;
 	},
 
-	stopDecompte: function () {
-		clearInterval(interval);
-		return timerElt.textContent = "Votre réservation est annulée."
-	},
-
-	save: function () {
-		sessionStorage.setItem("min", min);
-		sessionStorage.setItem("sec", sec);
-
+	// Enregistrement des données si actualisation de la page du navigateur
+	save: function (name, duration) {
+		window.addEventListener("unload", function () {
+			sessionStorage.setItem("name", name)
+			sessionStorage.setItem("durationRefresh", duration);
+		});
 	}
-}; // Fin de l'objet timer
+}; // Fin objet timer

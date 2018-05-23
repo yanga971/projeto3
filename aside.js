@@ -2,13 +2,12 @@
 
 // Objet aside
 var aside = {
-  init: function (station, name) {
-    console.log(station.name);
+  init: function (station) {
     this.details();
     // Titre du panneau d'affichage
     this.title();
     // Nom de la station sélectionnée
-    this.nameStation(station, name);
+    this.nameStation(station);
     // Adresse de la station
     this.address(station);
     // Etat de la station (ouverte ou fermée)
@@ -18,7 +17,7 @@ var aside = {
     // Nombre de places disponibles
     this.availableBikeStand(station);
     // Bouton de réservation
-    this.reserver(station, name);
+    this.reserver(station);
   },
 
   // Informations sur la station sélectionnée
@@ -39,7 +38,7 @@ var aside = {
   },
 
   // Nom de la station
-  nameStation: function (station, name) {
+  nameStation: function (station) {
     var h3Elt = document.createElement("h3");
     h3Elt.id = "nameStation";
     document.getElementById("details").appendChild(h3Elt);
@@ -88,13 +87,12 @@ var aside = {
   },
 
   // Bouton "réservez"
-  reserver: function (station, name) {
+  reserver: function (station) {
     var buttonElt = document.createElement("button");
     document.getElementById("details").appendChild(buttonElt);
     buttonElt.id = "btn";
     buttonElt = document.getElementById("btn");
     buttonElt.textContent = "Réservez";
-    buttonElt.disabled = true;
 
     // Activation du bouton "réservez" si la station est ouverte
     if (station.status !== "OPEN") {
@@ -108,11 +106,10 @@ var aside = {
 
     // Ajout d'un écouteur d'événement sur le bouton de réservation (apparition du canvas)
     buttonElt.addEventListener("click", function () {
-      canvas.init(station, name);
-
-      // Désactivation du bouton de réservation
+      canvas.init(station);
+      
+      // Désactivation du bouton de réservation si canvas
       document.getElementById("btn").disabled = true;
     });
   }
-
 }; //Fin de l'objet aside
