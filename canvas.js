@@ -7,22 +7,34 @@ var canvas = {
         var canvasElt = document.createElement("canvas");
         canvasElt.id = "canvas";
         document.getElementById("bikeReservation").appendChild(canvasElt);
-        this.dessin(canvas);
+        this.touchDevice();
+        this.dessin();
         this.confirm(station);
+    },
 
+    // Vérification si écran tactile
+    touchDevice: function () {
+        try {
+            document.createEvent("TouchEvent");
+            console.log(true);
+            return true;
+        } catch (e) {
+            console.log(false);
+            return false;
+        }
     },
 
     dessin: function () {
         var dessinElt = document.getElementById("canvas");
         var ctx = dessinElt.getContext("2d");
+        // Propriétés graphiques
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2;
 
         // Propriétés canvas
         var canvas = false;
 
-        // Propriétés graphiques
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 2;
-
+        // Signature avec la souris //
         // Bouton de souris activé
         dessinElt.onmousedown = function (e) {
             // Dessin activé
@@ -52,22 +64,49 @@ var canvas = {
             ctx.stroke();
         };
 
+        // Signature sur écran tactile // 
+        if (canvas.touchDevice = true) {
+
+            // Activation
+            dessinElt.ontouchstart = function (e) {
+                canvas = true;
+
+                // Activation du bouton de confirmation
+                document.getElementById("confirm").disabled = false;
+            };
+
+            // Détection des mouvements
+            dessinElt.addEventListener("touchmove", function (e) {
+                var touch = e.touches[0];
+                //console.log(touch);
+                var mouseEvent = new MouseEvent("mousemove", {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                dessinElt.dispatchEvent(mouseEvent);
+            }, false);
+
+            // Désactivation 
+            dessinElt.addEventListener("touchend", function (e) {
+                var mouseEvent = new MouseEvent("mouseup", {});
+                dessinElt.dispatchEvent(mouseEvent);
+            }, false);
+        }
+
         // Création du bouton "Effacer"
         var clearElt = document.createElement("button");
         clearElt.id = "clear";
         clearElt.textContent = "Effacer";
         document.getElementById("bikeReservation").appendChild(clearElt);
 
-
         // Efface le contenu du canvas
         document.getElementById("clear").addEventListener("click", function () {
             ctx.clearRect(0, 0, dessinElt.width, dessinElt.height);
             dessinElt.width = dessinElt.width
         });
-
     },
 
-    // Création du bouton "confirmer" pour valider la réservation
+    // Création du bouton "confirmer" afin de valider la réservation
     confirm: function (station, name) {
         var confirmElt = document.createElement("button");
         confirmElt.id = "confirm";
@@ -80,7 +119,7 @@ var canvas = {
             confirmElt.disabled = true;
         });
 
-        // Ajout d'un écouteur d'évenement sur le bouton de confirmation (lancement du décompte)
+        // Ajout d'un écouteur d'évènement sur le bouton de confirmation (lancement du décompte)
         confirmElt.addEventListener("click", function () {
             // Remplacement d'un précédent canvas éventuel
             bikeReservation.removeChild(document.getElementById("canvas"));
@@ -89,8 +128,6 @@ var canvas = {
 
             // Exécution du timer
             timer.decompte(station);
-            
-
         });
     }
 }; // Fin de l'objet canvas
