@@ -126,8 +126,9 @@ var canvas = {
             bikeReservation.removeChild(document.getElementById("confirm"));
             bikeReservation.removeChild(document.getElementById("clear"));
 
-            // Exécution du timer
+            // Enregistrement des données(station et temps de 20min)
             timer.decompte(station);
+            sessionStorage.clear();
         });
     }
 }; // Fin de l'objet canvas

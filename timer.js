@@ -28,7 +28,7 @@ var timer = {
 	// Décompte de 20 minutes lorsqu'il y a une réservation validée
 	decompte: function (station, duration) {
 		clearInterval(interval);
-		var duration = 20;
+		var duration = 1200;
 		var durationRefresh = sessionStorage.durationRefresh;
 
 		interval = setInterval(function () {
@@ -45,6 +45,7 @@ var timer = {
 				tps = timer.convert(durationRefresh);
 				timerElt.textContent = "Vous avez déjà une réservation à la station: " + station + " pour une durée de " + tps[0] + " min " + tps[1] + " s.";
 				durationRefresh--;
+				timer.save(station, durationRefresh);
 			}
 
 			// Décompte terminé
