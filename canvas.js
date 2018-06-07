@@ -1,6 +1,5 @@
 // Création du canvas
 
-// Objet canvas
 var canvas = {
     // Initialisation du canvas
     init: function (station) {
@@ -10,6 +9,7 @@ var canvas = {
         this.touchDevice();
         this.dessin();
         this.confirm(station);
+        this.crayon();
     },
 
     // Vérification si écran tactile
@@ -28,7 +28,7 @@ var canvas = {
         var dessinElt = document.getElementById("canvas");
         var ctx = dessinElt.getContext("2d");
         // Propriétés graphiques
-        ctx.strokeStyle = "red";
+        ctx.strokeStyle = "#101010d1";
         ctx.lineWidth = 2;
 
         // Propriétés canvas
@@ -68,12 +68,13 @@ var canvas = {
         if (canvas.touchDevice = true) {
 
             // Activation
-            dessinElt.ontouchstart = function (e) {
-                canvas = true;
-
+            dessinElt.addEventListener("touchstart", function (e) {
+                var mouseEvent = new MouseEvent("mousedown", {});
+                dessinElt.dispatchEvent(mouseEvent);
                 // Activation du bouton de confirmation
                 document.getElementById("confirm").disabled = false;
-            };
+
+            }, false);
 
             // Détection des mouvements
             dessinElt.addEventListener("touchmove", function (e) {
@@ -91,7 +92,12 @@ var canvas = {
                 var mouseEvent = new MouseEvent("mouseup", {});
                 dessinElt.dispatchEvent(mouseEvent);
             }, false);
-        }
+
+            // Arrêt du scrolling pendant la signature
+            document.body.addEventListener('touchmove', function (e) {
+                e.preventDefault();
+            }, false);
+        };
 
         // Création du bouton "Effacer"
         var clearElt = document.createElement("button");
@@ -104,6 +110,15 @@ var canvas = {
             ctx.clearRect(0, 0, dessinElt.width, dessinElt.height);
             dessinElt.width = dessinElt.width
         });
+    },
+
+    // Création d'un logo dans le canvas
+    crayon: function () {
+        var crayonElt = document.createElement("img");
+        crayonElt.id = "crayon";
+        crayonElt.src = "images/crayon/crayon.svg";
+        crayonElt.alt = "dessin d'un crayon";
+        document.getElementById("bikeReservation").appendChild(crayonElt);
     },
 
     // Création du bouton "confirmer" afin de valider la réservation
@@ -125,10 +140,11 @@ var canvas = {
             bikeReservation.removeChild(document.getElementById("canvas"));
             bikeReservation.removeChild(document.getElementById("confirm"));
             bikeReservation.removeChild(document.getElementById("clear"));
+            bikeReservation.removeChild(document.getElementById("crayon"));
 
-            // Enregistrement des données(station et temps de 20min)
+            // Lancement du décompte de 20 min. après confirmation
             timer.decompte(station);
             sessionStorage.clear();
         });
     }
-}; // Fin de l'objet canvas
+};

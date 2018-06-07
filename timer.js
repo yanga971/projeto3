@@ -1,4 +1,5 @@
-// OBJET TIMER
+// Décompte de 20 minutes
+
 var timerElt = document.getElementById("validation");
 var interval;
 
@@ -54,8 +55,6 @@ var timer = {
 				clearInterval(interval);
 				// Effacement des données éventuelles dans sessionStorage
 				sessionStorage.clear();
-				// Suppression du panneau d'informations
-				aside.details();
 				// Réinitialisation de l'affichage de la page
 				timer.display();
 			}
@@ -83,4 +82,4 @@ var timer = {
 			sessionStorage.setItem("durationRefresh", duration);
 		});
 	}
-}; // Fin objet timer
+};
