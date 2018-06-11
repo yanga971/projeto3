@@ -9,8 +9,8 @@ body {
 body {
   font-family: 'Roboto', sans-serif;
   padding: 50px;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#FAFAFA), to(white));
-  background-image: linear-gradient(to top, #FAFAFA 0%, white 100%);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(30%, #FFCC80), color-stop(50%, #FFB74D), to(#FFA726));
+  background-image: linear-gradient(to top, #FFCC80 30%, #FFB74D 50%, #FFA726);
   line-height: 1.4;
 }
 
@@ -23,10 +23,10 @@ body {
   overflow: hidden;
   padding: 5px 0 5px 5px;
   margin: 0 auto 2em;
-  border: 1px solid #ddd;
-  background: #FFF;
-  background: -webkit-gradient(linear, left top, left bottom, from(#FFF), color-stop(20%, #FFF), color-stop(80%, #EEE), to(#DDD));
-  background: linear-gradient(#FFF, #FFF 20%, #EEE 80%, #DDD);
+  border: 1px solid #FFA726;
+  background: #FFD180;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFF3E0), color-stop(20%, #FFF3E0), color-stop(80%, #FFD180), to(#FFA726));
+  background: linear-gradient(#FFF3E0, #FFF3E0 20%, #FFD180 80%, #FFA726);
   border-radius: 2px 2px 2px 2px;
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -58,7 +58,7 @@ body {
   border: 2px solid #f9f4f4;
   border-radius: 50%;
   padding: 5px;
-  background-color: #a9a1a1;
+  background-color: #FFA726;
   cursor: pointer;
 }
 
@@ -106,11 +106,11 @@ aside {
 }
 
 #details {
-  border: 1px solid #00000059;
-  -webkit-box-shadow: 1px 1px 10px 1px #1b02026e;
-  box-shadow: 1px 1px 10px 1px #1b02026e;
+  border: 2px solid #ffb74d;
+  -webkit-box-shadow: 2px 2px 2px 2px #ffb74d;
+  box-shadow: 2px 2px 2px 2px #ffb74d;
   border-radius: 10px;
-  background-color: wheat;
+  background-color: #ffd180;
   height: 100%;
   text-align: center;
   line-height: 1.9;
@@ -118,10 +118,10 @@ aside {
 
 #btn {
   border-radius: 10%;
-  -webkit-box-shadow: 1px 1px 1px 0px #101010d1;
-  box-shadow: 1px 1px 1px 0px #101010d1;
-  border: 1px solid #1514146e;
-  background-color: white;
+  -webkit-box-shadow: 1px 1px 1px 0px #FFA726;
+  box-shadow: 1px 1px 1px 0px #FFA726;
+  border: 2px solid #FFA726;
+  background-color: #f9f4f4;
   cursor: pointer;
   padding: 5px;
   font-weight: 700;
@@ -141,10 +141,10 @@ aside {
   border-radius: 10px;
   width: 29%;
   height: 190px;
-  margin-top: 30px;
-  border: 2px solid wheat;
-  -webkit-box-shadow: 2px 2px 2px 2px wheat;
-  box-shadow: 2px 2px 2px 2px wheat;
+  margin: 16px 0 10px 0;
+  border: 2px solid #FFA726;
+  -webkit-box-shadow: 2px 2px 2px 2px #FFA726;
+  box-shadow: 2px 2px 2px 0 #FFA726;
   -ms-touch-action: none;
   touch-action: none;
 }
@@ -153,10 +153,10 @@ aside {
 
 #crayon {
   position: absolute;
-  right: 20%;
+  right: 19%;
   width: 80px;
   height: 80px;
-  top: 18px;
+  top: 5px;
 }
 
 /* bouton de validation de la réservation*/
@@ -164,12 +164,12 @@ aside {
 #confirm {
   position: absolute;
   right: 17%;
-  top: 185px;
+  top: 170px;
   border-radius: 10%;
-  -webkit-box-shadow: 1px 1px 1px 0px #101010d1;
-  box-shadow: 1px 1px 1px 0px #101010d1;
-  border: 1px solid #1514146e;
-  background-color: white;
+  -webkit-box-shadow: 1px 1px 1px 0px #FFA726;
+  box-shadow: 1px 1px 1px 0px #FFA726;
+  border: 1px solid #FFA726;
+  background-color: #f9f4f4;
   cursor: pointer;
   padding: 5px;
   font-weight: 700;
@@ -180,12 +180,12 @@ aside {
 #clear {
   position: absolute;
   right: 4%;
-  top: 185px;
+  top: 170px;
   border-radius: 10%;
-  -webkit-box-shadow: 1px 1px 1px 0px #101010d1;
-  box-shadow: 1px 1px 1px 0px #101010d1;
-  border: 1px solid #1514146e;
-  background-color: white;
+  -webkit-box-shadow: 1px 1px 1px 0px #FFA726;
+  box-shadow: 1px 1px 1px 0px #FFA726;
+  border: 1px solid #FFA726;
+  background-color: #f9f4f4;
   cursor: pointer;
   padding: 5px;
   font-weight: 700;
@@ -196,13 +196,13 @@ aside {
 /* Footer*/
 
 #validation {
-  border: 1px solid #c7c3c3;
+  border: 1px solid #FFA726;
   display: inline-block;
   padding: 10px;
   border-radius: 10px;
   margin: 16px 0 0 23px;
-  -webkit-box-shadow: 1px 1px 1px 0 #c7c3c3;
-  box-shadow: 1px 1px 1px 0 #c7c3c3;
+  -webkit-box-shadow: 1px 1px 1px 0 #FFA726;
+  box-shadow: 2px 2px 2px 0 #FFA726;
 }
 
 @media screen and (max-width: 768px) {
@@ -213,15 +213,6 @@ aside {
     width: 100%;
     padding: 0;
   }
-  #carouselContainer {
-    transition: all 200ms ease-in;
-    transform: scale(1); 
-  }
-  #carouselContainer:hover {
-    transition: all 200ms ease-in;
-    transform: scale(1);
-  }
-
   .rightArrow,
   .leftArrow {
     width: 10px;

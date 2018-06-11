@@ -143,8 +143,9 @@ var canvas = {
             bikeReservation.removeChild(document.getElementById("crayon"));
 
             // Lancement du décompte de 20 min. après confirmation
-            timer.decompte(station);
             sessionStorage.clear();
+            timer.decompte(station);
+            
         });
     }
 };

@@ -22,7 +22,7 @@ var images = [{
 
 
 var carousel = {
-    totalSlide: 5,
+    totalSlide: images.length, //images.length
     currentSlide: 1,
     init: function () {
         this.carouselContainer()
@@ -43,7 +43,7 @@ var carousel = {
         document.getElementById("carouselContainer").appendChild(slidesElt);
 
         // Création d'une boucle afin de récupérer l'ensemble des images
-        for (var i = 0; i < images.length; i++) {
+        for (var i = 0; i < this.totalSlide; i++) {
             // Création de l'image
             var imageElt = document.createElement("img");
             // Source de l'image

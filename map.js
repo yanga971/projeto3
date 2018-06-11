@@ -11,6 +11,13 @@ var map = {
     };
     googleMap = new google.maps.Map(document.getElementById('googleMap'), this.options);
 
+    //création du marqueur
+            var marqueur = new google.maps.Marker({
+                position: new google.maps.LatLng(48.040327313069206, 7.1324036910591015),
+                map: googleMap
+            });
+
+
     // Récupération des stations JC Decaux
     ajaxGet('https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=c18bf95eec3f31e26c33a30a925adbdb7ed3cc55', function (stations) {
       stations = JSON.parse(stations);
@@ -21,7 +28,7 @@ var map = {
       });
 
       // Récupération des données
-      stations.forEach((station) => {
+      stations.forEach(function(station){
         marker = new google.maps.Marker({
           position: station.position,
           map: googleMap
@@ -42,7 +49,7 @@ var map = {
           // Affichage des informations sur la station désirée
           aside.init(station);
         });
-      })
+      });
     })
   }
 };
