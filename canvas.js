@@ -130,11 +130,11 @@ var canvas = {
         this.touchmovezone = document.getElementById("canvas");
         this.ctx = this.touchmovezone.getContext("2d");
         e.preventDefault();
-        offset = canvas.getOffset(this.touchmovezone);
+        this.offset = canvas.getOffset(this.touchmovezone);
         if (lastPt != null) {
             ctx.beginPath();
-            ctx.moveTo(lastPt.x - offset.left, lastPt.y - offset.top);
-            ctx.lineTo(e.touches[0].pageX - offset.left, e.touches[0].pageY - offset.top);
+            ctx.moveTo(lastPt.x - this.offset.left, lastPt.y - this.offset.top);
+            ctx.lineTo(e.touches[0].pageX - this.offset.left, e.touches[0].pageY - this.offset.top);
 
             // Propriétés graphiques
             ctx.strokeStyle = "#2d26ff";
