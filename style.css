@@ -130,17 +130,25 @@ aside {
 /*************************************************************/
 
 /* bikeReservation _ canvas*/
+#reservation {
+display: none;
+}
 
 #bikeReservation {
   position: relative;
+  /* width: 29%;*/
+  height: 220px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #canvas {
   position: absolute;
-  right: -1%;
   border-radius: 10px;
-  width: 29%;
-  height: 190px;
   margin: 16px 0 10px 0;
   border: 2px solid #FFA726;
   -webkit-box-shadow: 2px 2px 2px 2px #FFA726;
@@ -153,18 +161,18 @@ aside {
 
 #crayon {
   position: absolute;
-  right: 19%;
+  right: 53%;
   width: 80px;
   height: 80px;
-  top: 5px;
+  top: 11px;
 }
 
 /* bouton de validation de la réservation*/
 
 #confirm {
   position: absolute;
-  right: 17%;
-  top: 170px;
+  right: 53%;
+  top: 295px;
   border-radius: 10%;
   -webkit-box-shadow: 1px 1px 1px 0px #FFA726;
   box-shadow: 1px 1px 1px 0px #FFA726;
@@ -179,8 +187,8 @@ aside {
 
 #clear {
   position: absolute;
-  right: 4%;
-  top: 170px;
+  right: 41%;
+  top: 295px;
   border-radius: 10%;
   -webkit-box-shadow: 1px 1px 1px 0px #FFA726;
   box-shadow: 1px 1px 1px 0px #FFA726;
@@ -198,14 +206,19 @@ aside {
 #validation {
   border: 1px solid #FFA726;
   display: inline-block;
+  /* visibility: visible; */
   padding: 10px;
   border-radius: 10px;
-  margin: 16px 0 0 23px;
+  margin: 10px 23px;
   -webkit-box-shadow: 1px 1px 1px 0 #FFA726;
   box-shadow: 2px 2px 2px 0 #FFA726;
 }
 
-@media screen and (max-width: 768px) {
+/********************************************************/
+
+/* Media queries*/
+
+@media screen and (max-width: 767px) {
   body {
     padding: 10px;
   }
@@ -237,21 +250,25 @@ aside {
   #details {
     padding-bottom: 10px;
   }
-  #canvas {
-    width: 100%;
-    margin-top: 30%;
+  #reservation {
+     display: none;
+  }
+  #bikeReservation {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   #crayon {
-    left: 5%;
-    top: 95px;
+    left: 15%;
+    top: 10px;
   }
   #clear {
-    top: 250px;
-    right: 5%;
+    top: 290px;
+    right: 20%;
   }
   #confirm {
-    top: 250px;
-    left: 5%;
+    top: 290px;
+    left: 20%;
   }
   footer {
     text-align: center;

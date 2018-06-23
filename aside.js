@@ -19,7 +19,7 @@ var aside = {
     document.getElementById("stationDetails").appendChild(detailsElt);
   },
 
-  //Titre du panneau d'informations
+  // Titre du panneau d'information
   title: function () {
     h2Elt = document.createElement("h2");
     h2Elt.id = "title";
@@ -96,7 +96,7 @@ var aside = {
     //Ajout d'un écouteur d'événement sur le bouton de réservation (apparition du canvas) 
     buttonElt.addEventListener("click", function () {
       canvas.init(station);
-      
+
       //Désactivation du bouton de réservation si canvas 
       document.getElementById("btn").disabled = true;
     });

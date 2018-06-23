@@ -22,7 +22,7 @@ var images = [{
 
 
 var carousel = {
-    totalSlide: images.length, //images.length
+    totalSlide: images.length, 
     currentSlide: 1,
     init: function () {
         this.carouselContainer()
@@ -124,4 +124,4 @@ var carousel = {
         document.getElementById("carouselContainer").style.marginLeft = slideToScroll;
         this.currentSlide--;
     }
-}
+};
