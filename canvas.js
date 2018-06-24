@@ -1,5 +1,8 @@
-var offsetLeft =  0;
-var offsetTop =  0;
+var dessinElt;
+var ctx;
+var lastPt = null;
+
+// Objet canvas
 var canvas = {
     // Initialisation 
     init: function (station) {
@@ -28,6 +31,14 @@ var canvas = {
         reservation.style.display = "block";
 
     },
+    // Contexte canvas
+    style: function() {
+        dessinElt = document.getElementById("canvas");
+        ctx = dessinElt.getContext("2d");
+        // Propriétés graphiques
+        ctx.strokeStyle = "#101010";
+        ctx.lineWidth = 2;
+    },
     // Vérification si écran tactile
     touchDevice: function (e) {
         try {
@@ -40,14 +51,10 @@ var canvas = {
         }
     },
 
-    // Signature avec la souris //
-    mouse: function (ctx, dessinElt) {
-        var dessinElt = document.getElementById("canvas");
-        var ctx = dessinElt.getContext("2d");
-        // Propriétés graphiques
-        ctx.strokeStyle = "#2d26ff";
-        ctx.lineWidth = 2;
-
+    //  Méthode signature avec la souris //
+    mouse: function () {
+        // Appel méthode contexte canvas
+        this.style();
         // Propriétés canvas
         var canvas = false;
 
@@ -88,62 +95,49 @@ var canvas = {
 
         // Efface le contenu du canvas
         document.getElementById("clear").addEventListener("click", function () {
-            ctx.clearRect(0, 0, dessinElt.width, dessinElt.height);
             dessinElt.width = dessinElt.width
+            ctx.clearRect(0, 0, dessinElt.width, dessinElt.height);
+            
         });
     },
 
-    // Signature sur écran tactile // 
+    // Méthode signature sur écran tactile // 
     touch: function (e) {
         
-        this.touchmovezone = document.getElementById("canvas");
-        this.ctx = this.touchmovezone.getContext("2d");
+        // Appel méthode contexte canvas
+        this.style();
 
-        this.touchmovezone.addEventListener("touchmove", function(e){
-            canvas.draw(e,this)
+        // Méthode de gestionnaire d'événements 
+        dessinElt.addEventListener("touchmove", function(e){
+            canvas.draw(e)
         }, false);
-        this.touchmovezone.addEventListener("touchend", function(e){
+        dessinElt.addEventListener("touchend", function(e){
             canvas.end(e)
         }, false);
  
     },
 
-    // Calcul du décalage  des coordonnées
-    getOffset: function (obj) {
-        do {
-            if (!isNaN(obj.offsetLeft)) {
-                this.offsetLeft += obj.offsetLeft;
-            }
-            if (!isNaN(obj.offsetTop)) {
-                this.offsetTop += obj.offsetTop;
-            }
-        } while (obj = obj.offsetParent);
-        return {
-            left: this.offsetLeft,
-            top: this.offsetTop
-        };
-        
-    },
     // Ajout d'un tracé entre les points de touche
     draw: function (e) {
-        var lastPt = null;
-        this.touchmovezone = document.getElementById("canvas");
-        this.ctx = this.touchmovezone.getContext("2d");
         e.preventDefault();
-        this.offset = canvas.getOffset(this.touchmovezone);
+
+        // Méthode afin de renvoyer les coordonnées par rapport à la fenêtre du navigateur
+        // Puis correction du décalage des coordonnées avec l'élément canvas situé dans le document
+        var rect = dessinElt.getBoundingClientRect();
+        
+        // Si détection d'un point on dessine
         if (lastPt != null) {
             ctx.beginPath();
-            ctx.moveTo(lastPt.x - this.offset.left, lastPt.y - this.offset.top);
-            ctx.lineTo(e.touches[0].pageX - this.offset.left, e.touches[0].pageY - this.offset.top);
-
-            // Propriétés graphiques
-            ctx.strokeStyle = "#2d26ff";
-            ctx.lineWidth = 2;
+            ctx.moveTo(lastPt.x , lastPt.y);
+            ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
+            // this.style();
             ctx.stroke();
         }
+
+        // stocke chaque dernier point lorsque événement touchmove est appelé 
         lastPt = {
-            x: e.touches[0].pageX,
-            y: e.touches[0].pageY
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
         };
 
         // Activation du bouton de confirmation
@@ -151,7 +145,7 @@ var canvas = {
         
     },
 
-     // Arrêt de l'événement touchmove
+     // Arrêt de l'événement touchmove en ne stockant pas le dernier point
      end:function (e) {
        e.preventDefault();
         lastPt = null;
@@ -187,10 +181,6 @@ var canvas = {
             bikeReservation.removeChild(document.getElementById("clear"));
             bikeReservation.removeChild(document.getElementById("crayon"));
 
-            // Lancement du décompte de 20 min. après confirmation
-            sessionStorage.clear();
-            timer.decompte(station);
-
             // Rend le footer visible
             var validation = document.getElementById("validation")
             validation.style.visibility = "visible";
@@ -198,6 +188,11 @@ var canvas = {
             // Masque la section réservation
             var reservation = document.getElementById("reservation")
             reservation.style.display = "none";
+
+            // Lancement du décompte de 20 min. après confirmation
+            sessionStorage.clear();
+            timer.decompte(station);
+        
         });
     }
 };
